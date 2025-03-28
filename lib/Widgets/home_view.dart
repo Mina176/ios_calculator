@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ios_calculator/constants.dart';
+import 'package:ios_calculator/styles.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -17,11 +18,11 @@ class HomeView extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.65,
               child: GridView.builder(
                 padding: EdgeInsets.all(0),
-                itemCount: 20,
+                itemCount: Values.values.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4),
                 itemBuilder: (context, index) {
-                  return CustomButton();
+                  return CustomButton(symbol: Values.values[index]);
                 },
               )),
         )
@@ -31,8 +32,8 @@ class HomeView extends StatelessWidget {
 }
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key});
-
+  const CustomButton({super.key, required this.symbol});
+  final String symbol;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,9 +42,7 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
             color: kBlack, borderRadius: BorderRadius.circular(64)),
         child: Center(
-          child: Text(
-            'AC',
-          ),
+          child: Text(symbol, style: Styles.keyboardStyle),
         ),
       ),
     );
