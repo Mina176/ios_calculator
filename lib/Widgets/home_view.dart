@@ -72,6 +72,13 @@ class _HomeViewState extends State<HomeView> {
                       },
                     );
                   },
+                  onLongPress: () {
+                    setState(
+                      () {
+                        equation = '0';
+                      },
+                    );
+                  },
                 );
               } // AC
               else if (index == 1) {
@@ -168,7 +175,7 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        equation == '0' 
+                        equation == '0'
                             ? equation = displayer(values[index])
                             : equation += displayer(values[index]);
                       },
