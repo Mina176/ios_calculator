@@ -186,9 +186,10 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        history = equation;
-                        equation = calculate(equation);
-                        result = equation;
+                        if (history == '') {
+                          history = equation;
+                          equation = calculate(equation);
+                        }
                       },
                     );
                   },
