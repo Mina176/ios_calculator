@@ -102,6 +102,13 @@ String displayer(String value) {
 }
 
 String calculate(String expression) {
+  if (expression.endsWith('+') ||
+      expression.endsWith('-') ||
+      expression.endsWith('*') ||
+      expression.endsWith('/') ||
+      expression.endsWith('%')) {
+    return expression;
+  }
   String resultString = '';
   Parser parser = Parser();
   Expression exp = parser.parse(expression);
