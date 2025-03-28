@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ios_calculator/styles.dart';
@@ -103,11 +102,15 @@ String displayer(String value) {
 }
 
 String calculate(String expression) {
+  String resultString = '';
   Parser parser = Parser();
   Expression exp = parser.parse(expression);
 
   ContextModel cm = ContextModel();
   double result = exp.evaluate(EvaluationType.REAL, cm);
-  print(result);
-  return result.toString();
+  result.toString().endsWith('0')
+      ? resultString = result.toInt().toString()
+      : resultString = result.toString();
+
+  return resultString;
 }
