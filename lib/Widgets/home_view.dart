@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ios_calculator/constants.dart';
 import 'package:ios_calculator/styles.dart';
@@ -8,13 +9,27 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Expanded(
-          child: Container(),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SizedBox(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child:
+            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  '280x100',
+                  style: kHistoryStyle,
+                ),
+                Text(
+                  '28000',
+                  style: kResultStyle,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
               height: MediaQuery.of(context).size.height * 0.65,
               child: GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
@@ -30,9 +45,9 @@ class HomeView extends StatelessWidget {
                     color: colorSetter(values[index]),
                   );
                 },
-              )),
-        )
-      ]),
+              ))
+        ]),
+      ),
     );
   }
 }

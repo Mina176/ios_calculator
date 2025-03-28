@@ -33,27 +33,32 @@ Widget valueToWidget(String value) {
   if (value == '/') {
     return FaIcon(
       FontAwesomeIcons.divide,
+      size: 32,
     );
   } else if (value == '*') {
     return FaIcon(
       FontAwesomeIcons.xmark,
+      size: 32,
     );
   } else if (value == '-') {
     return FaIcon(
       FontAwesomeIcons.minus,
+      size: 32,
     );
   } else if (value == '+') {
     return FaIcon(
       FontAwesomeIcons.plus,
+      size: 32,
     );
   } else if (value == '=') {
     return FaIcon(
       FontAwesomeIcons.equals,
+      size: 32,
     );
   } else {
     return Text(
       value,
-      style: Styles.keyboardStyle,
+      style: keyboardStyle,
     );
   }
 }
@@ -75,7 +80,7 @@ colorSetter(String value) {
     return kYellow;
   } else if (value == '=') {
     return kYellow;
-  }else {
+  } else {
     return kBlack;
   }
 }
