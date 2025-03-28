@@ -13,6 +13,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   String equation = '0';
   String history = '';
+  String result = '0';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,6 +89,8 @@ class _HomeViewState extends State<HomeView> {
                     setState(
                       () {
                         equation = '0';
+                        result = '0';
+                        history = '';
                       },
                     );
                   },
@@ -185,6 +188,7 @@ class _HomeViewState extends State<HomeView> {
                       () {
                         history = equation;
                         equation = calculate(equation);
+                        result = equation;
                       },
                     );
                   },
@@ -196,14 +200,15 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        if (history != '') {
-                          equation = '';
+                        if (history == '') {
+                          equation == '0'
+                              ? equation = displayer(values[index])
+                              : equation += displayer(values[index]);
+                        } else if (history != '') {
                           history = '';
+                          equation = '';
                           equation += displayer(values[index]);
                         }
-                        equation == '0'
-                            ? equation = displayer(values[index])
-                            : equation += displayer(values[index]);
                       },
                     );
                   },
