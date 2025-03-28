@@ -196,6 +196,11 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
+                        if (history != '') {
+                          equation = '';
+                          history = '';
+                          equation += displayer(values[index]);
+                        }
                         equation == '0'
                             ? equation = displayer(values[index])
                             : equation += displayer(values[index]);
