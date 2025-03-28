@@ -12,6 +12,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   String equation = '0';
+  String history = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    '280x100',
+                    history,
                     style: kHistoryStyle,
                   ),
                 ),
@@ -180,9 +181,9 @@ class _HomeViewState extends State<HomeView> {
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
                   onTap: () {
-                    
                     setState(
                       () {
+                        history = equation;
                         equation = calculate(equation);
                       },
                     );
