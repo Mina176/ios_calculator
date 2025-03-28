@@ -62,8 +62,12 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
+                        if (history == '0') {
+                          equation.substring(0, equation.length - 1);
+                        }
                         if (history != '') {
                           history = '';
+                          equation = '0';
                         }
                         if (equation == '0') {
                           equation = '0';
@@ -72,9 +76,6 @@ class _HomeViewState extends State<HomeView> {
                             ? equation = '0'
                             : equation =
                                 equation.substring(0, equation.length - 1);
-                        if (result != '') {
-                          equation = '0';
-                        }
                       },
                     );
                   },
@@ -117,97 +118,33 @@ class _HomeViewState extends State<HomeView> {
                   },
                 );
               } // divided
-              else if (index == 3) {
+              else if (index == 3 ||
+                  index == 4 ||
+                  index == 7 ||
+                  index == 11 ||
+                  index == 15) {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
                   onTap: () {
                     setState(
                       () {
-                        equation == '0' ||
-                                equation.contains(values[index]) ||
+                        equation.contains(values[index]) ||
                                 equation.endsWith('+') ||
                                 equation.endsWith('-') ||
                                 equation.endsWith('*') ||
                                 equation.endsWith('/') ||
                                 equation.endsWith('%')
-                            ? equation = equation
+                            ? equation =
+                                equation.substring(0, equation.length - 1) +
+                                    displayer(values[index])
                             : equation += displayer(values[index]);
                       },
                     );
                   },
                 );
-              } // times
-              else if (index == 7) {
-                return CustomButton(
-                  symbol: valueToWidget(values[index]),
-                  color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        equation == '0' ||
-                                equation.contains(values[index]) ||
-                                equation.endsWith('/')
-                            ? equation = displayer(values[index])
-                            : equation += displayer(values[index]);
-                      },
-                    );
-                  },
-                );
-              } // minus
-              else if (index == 11) {
-                return CustomButton(
-                  symbol: valueToWidget(values[index]),
-                  color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        equation == '0' || equation.contains(values[index])
-                            ? equation = equation
-                            : equation += displayer(values[index]);
-                      },
-                    );
-                  },
-                );
-              } // plus
-              else if (index == 15) {
-                return CustomButton(
-                  symbol: valueToWidget(values[index]),
-                  color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        equation == '0' || equation.contains(values[index])
-                            ? equation = equation
-                            : equation += displayer(values[index]);
-                      },
-                    );
-                  },
-                );
-              } //equals
-              else if (index == 19) {
-                return CustomButton(
-                  symbol: valueToWidget(values[index]),
-                  color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        if (history == '') {
-                          history = equation;
-                          equation = calculate(equation);
-                          result = equation;
-                        }
-                        if (equation.endsWith('+') ||
-                            equation.endsWith('-') ||
-                            equation.endsWith('*') ||
-                            equation.endsWith('/')) {
-                          history == '';
-                        }
-                      },
-                    );
-                  },
-                );
-              } else if (index == 16) {
+              } // 00 button
+              else if (index == 16) {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
@@ -226,6 +163,49 @@ class _HomeViewState extends State<HomeView> {
                           history = '';
                           equation = '';
                           equation += displayer(values[index]);
+                        }
+                      },
+                    );
+                  },
+                );
+              } //equals
+              else if (index == 18) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        if (equation.endsWith('.')) {
+                          equation = equation;
+                        } else {
+                          equation += displayer(values[index]);
+                        }
+                      },
+                    );
+                  },
+                );
+              } else if (index == 19) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        if (history == '') {
+                          if (equation.startsWith('0')) {
+                            history = '';
+                            return;
+                          }
+                          history = equation;
+                          equation = calculate(equation);
+                          result = equation;
+                        }
+                        if (equation.endsWith('+') ||
+                            equation.endsWith('-') ||
+                            equation.endsWith('*') ||
+                            equation.endsWith('/')) {
+                          history == '';
                         }
                       },
                     );
