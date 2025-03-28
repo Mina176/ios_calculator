@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:ios_calculator/Widgets/custom_button.dart';
 import 'package:ios_calculator/constants.dart';
@@ -101,7 +99,7 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        equation == '0' || equation == values[index]
+                        equation == '0' || equation.contains(values[index])
                             ? equation = equation
                             : equation += displayer(values[index]);
                       },
@@ -116,7 +114,13 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        equation == '0' || equation == values[index]
+                        equation == '0' ||
+                                equation.contains(values[index]) ||
+                                equation.endsWith('+') ||
+                                equation.endsWith('-') ||
+                                equation.endsWith('*') ||
+                                equation.endsWith('/') ||
+                                equation.endsWith('%')
                             ? equation = equation
                             : equation += displayer(values[index]);
                       },
@@ -131,8 +135,10 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        equation == '0' || equation == values[index]
-                            ? equation = equation
+                        equation == '0' ||
+                                equation.contains(values[index]) ||
+                                equation.endsWith('/')
+                            ? equation = displayer(values[index])
                             : equation += displayer(values[index]);
                       },
                     );
@@ -146,7 +152,7 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        equation == '0' || equation == values[index]
+                        equation == '0' || equation.contains(values[index])
                             ? equation = equation
                             : equation += displayer(values[index]);
                       },
@@ -161,9 +167,23 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        equation == '0' || equation == values[index]
+                        equation == '0' || equation.contains(values[index])
                             ? equation = equation
                             : equation += displayer(values[index]);
+                      },
+                    );
+                  },
+                );
+              } //equals
+              else if (index == 19) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    
+                    setState(
+                      () {
+                        equation = calculate(equation);
                       },
                     );
                   },

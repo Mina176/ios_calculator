@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ios_calculator/styles.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 const kYellow = Color(0xFFFF9F0A);
 const kGrey = Color(0xFF5C5B60);
@@ -98,4 +101,14 @@ String displayer(String value) {
   } else {
     return value;
   }
+}
+
+String calculate(String expression) {
+  Parser parser = Parser();
+  Expression exp = parser.parse(expression);
+
+  ContextModel cm = ContextModel();
+  double result = exp.evaluate(EvaluationType.REAL, cm);
+  print(result);
+  return result.toString();
 }
