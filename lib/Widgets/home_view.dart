@@ -207,6 +207,30 @@ class _HomeViewState extends State<HomeView> {
                     );
                   },
                 );
+              } else if (index == 16) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        if (equation == '0') {
+                          equation = '0';
+                          return;
+                        }
+                        if (history == '') {
+                          equation == '0'
+                              ? equation = displayer(values[index])
+                              : equation += displayer(values[index]);
+                        } else if (history != '') {
+                          history = '';
+                          equation = '';
+                          equation += displayer(values[index]);
+                        }
+                      },
+                    );
+                  },
+                );
               } else {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
