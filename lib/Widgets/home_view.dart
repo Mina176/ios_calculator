@@ -1,72 +1,185 @@
-import 'package:flutter/foundation.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:ios_calculator/Widgets/custom_button.dart';
 import 'package:ios_calculator/constants.dart';
 import 'package:ios_calculator/styles.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  String equation = '0';
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Expanded(
+        body: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  '280x100',
-                  style: kHistoryStyle,
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    '280x100',
+                    style: kHistoryStyle,
+                  ),
                 ),
-                Text(
-                  '28000',
-                  style: kResultStyle,
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    equation,
+                    style: kResultStyle,
+                  ),
                 ),
               ],
             ),
           ),
-          SizedBox(
-              height: MediaQuery.of(context).size.height * 0.65,
-              child: GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.all(0),
-                itemCount: values.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4),
-                itemBuilder: (context, index) {
-                  return CustomButton(
-                    symbol: valueToWidget(
-                      values[index],
-                    ),
-                    color: colorSetter(values[index]),
-                  );
-                },
-              ))
-        ]),
-      ),
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.symbol, required this.color});
-  final Widget symbol;
-  final Color color;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-      child: Container(
-        decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(64)),
-        child: Center(
-          child: symbol,
         ),
-      ),
-    );
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.65,
+          child: GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.all(0),
+            itemCount: values.length,
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+            itemBuilder: (context, index) {
+              // delete left button
+              if (index == 0) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        if (equation == '0') {
+                          equation = '0';
+                        }
+                        equation.length == 1
+                            ? equation = '0'
+                            : equation =
+                                equation.substring(0, equation.length - 1);
+                      },
+                    );
+                  },
+                );
+              } // AC
+              else if (index == 1) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        equation = '0';
+                      },
+                    );
+                  },
+                );
+              } // %
+              else if (index == 2) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        equation == '0' || equation == values[index]
+                            ? equation = equation
+                            : equation += displayer(values[index]);
+                      },
+                    );
+                  },
+                );
+              } // divided
+              else if (index == 3) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        equation == '0' || equation == values[index]
+                            ? equation = equation
+                            : equation += displayer(values[index]);
+                      },
+                    );
+                  },
+                );
+              } // times
+              else if (index == 7) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        equation == '0' || equation == values[index]
+                            ? equation = equation
+                            : equation += displayer(values[index]);
+                      },
+                    );
+                  },
+                );
+              } // minus
+              else if (index == 11) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        equation == '0' || equation == values[index]
+                            ? equation = equation
+                            : equation += displayer(values[index]);
+                      },
+                    );
+                  },
+                );
+              } // plus
+              else if (index == 15) {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        equation == '0' || equation == values[index]
+                            ? equation = equation
+                            : equation += displayer(values[index]);
+                      },
+                    );
+                  },
+                );
+              } else {
+                return CustomButton(
+                  symbol: valueToWidget(values[index]),
+                  color: colorSetter(values[index]),
+                  onTap: () {
+                    setState(
+                      () {
+                        equation == '0' 
+                            ? equation = displayer(values[index])
+                            : equation += displayer(values[index]);
+                      },
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        ),
+      ]),
+    ));
   }
 }

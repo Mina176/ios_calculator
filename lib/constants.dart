@@ -7,8 +7,8 @@ const kGrey = Color(0xFF5C5B60);
 const kBlack = Color(0xFF2A2A2C);
 
 const List<String> values = [
+  'del',
   'AC',
-  'C',
   '%',
   '/',
   '7',
@@ -30,7 +30,12 @@ const List<String> values = [
 ];
 
 Widget valueToWidget(String value) {
-  if (value == '/') {
+  if (value == 'del') {
+    return FaIcon(
+      FontAwesomeIcons.deleteLeft,
+      size: 32,
+    );
+  } else if (value == '/') {
     return FaIcon(
       FontAwesomeIcons.divide,
       size: 32,
@@ -64,9 +69,9 @@ Widget valueToWidget(String value) {
 }
 
 colorSetter(String value) {
-  if (value == 'AC') {
+  if (value == 'del') {
     return kGrey;
-  } else if (value == 'C') {
+  } else if (value == 'AC') {
     return kGrey;
   } else if (value == '%') {
     return kGrey;
@@ -82,5 +87,15 @@ colorSetter(String value) {
     return kYellow;
   } else {
     return kBlack;
+  }
+}
+
+String displayer(String value) {
+  if (value == 'del') {
+    return '0';
+  } else if (value == 'AC') {
+    return '0';
+  } else {
+    return value;
   }
 }
