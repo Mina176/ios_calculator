@@ -17,12 +17,18 @@ class HomeView extends StatelessWidget {
           child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.65,
               child: GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.all(0),
-                itemCount: Values.values.length,
+                itemCount: values.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4),
                 itemBuilder: (context, index) {
-                  return CustomButton(symbol: Values.values[index]);
+                  return CustomButton(
+                    symbol: valueToWidget(
+                      values[index],
+                    ),
+                    color: colorSetter(values[index]),
+                  );
                 },
               )),
         )
@@ -32,17 +38,18 @@ class HomeView extends StatelessWidget {
 }
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.symbol});
-  final String symbol;
+  const CustomButton({super.key, required this.symbol, required this.color});
+  final Widget symbol;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
       child: Container(
         decoration: BoxDecoration(
-            color: kBlack, borderRadius: BorderRadius.circular(64)),
+            color: color, borderRadius: BorderRadius.circular(64)),
         child: Center(
-          child: Text(symbol, style: Styles.keyboardStyle),
+          child: symbol,
         ),
       ),
     );
