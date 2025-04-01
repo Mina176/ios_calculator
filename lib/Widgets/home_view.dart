@@ -35,6 +35,8 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 Container(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  clipBehavior: Clip.none,
                   alignment: Alignment.centerRight,
                   child: Text(
                     equation,
@@ -180,22 +182,12 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        if (containsOperator(equation)) {
-                          equation = calculate(equation);
-                        } else {
-                          return;
-                        }
-                        if (history == '') {
-                          if (endsWithOperator(equation)) {
-                            history = '';
-                            return;
-                          }
+                        if (endsWithOperator(equation)) {
+                          history == '';
+                        } else if (containsOperator(equation)) {
                           history = equation;
                           equation = calculate(equation);
                           result = equation;
-                        }
-                        if (endsWithOperator(equation)) {
-                          history == '';
                         }
                       },
                     );
