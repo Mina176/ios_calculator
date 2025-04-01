@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ios_calculator/Widgets/home_view.dart';
+import 'package:ios_calculator/constants.dart';
 
 void main() {
   runApp(const IosCaclulator());
+
+  print(calculate('2/2'));
 }
 
 class IosCaclulator extends StatelessWidget {

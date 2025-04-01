@@ -102,24 +102,10 @@ class _HomeViewState extends State<HomeView> {
                     );
                   },
                 );
-              } // %
-              else if (index == 2) {
-                return CustomButton(
-                  symbol: valueToWidget(values[index]),
-                  color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        equation == '0' || equation.contains(values[index])
-                            ? equation = equation
-                            : equation += displayer(values[index]);
-                      },
-                    );
-                  },
-                );
-              } // divided
-              else if (index == 3 ||
-                  index == 4 ||
+              }
+              // operators
+              else if (index == 2 ||
+                  index == 3 ||
                   index == 7 ||
                   index == 11 ||
                   index == 15) {
@@ -129,12 +115,11 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
+                        if (history != '') {
+                          history = '';
+                        }
                         equation.contains(values[index]) ||
-                                equation.endsWith('+') ||
-                                equation.endsWith('-') ||
-                                equation.endsWith('*') ||
-                                equation.endsWith('/') ||
-                                equation.endsWith('%')
+                                endsWithOperator(equation)
                             ? equation =
                                 equation.substring(0, equation.length - 1) +
                                     displayer(values[index])
@@ -168,7 +153,7 @@ class _HomeViewState extends State<HomeView> {
                     );
                   },
                 );
-              } //equals
+              } // '.'
               else if (index == 18) {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
@@ -178,6 +163,8 @@ class _HomeViewState extends State<HomeView> {
                       () {
                         if (equation.endsWith('.')) {
                           equation = equation;
+                        } else if (endsWithOperator(equation)) {
+                          equation += '0.';
                         } else {
                           equation += displayer(values[index]);
                         }
@@ -185,7 +172,8 @@ class _HomeViewState extends State<HomeView> {
                     );
                   },
                 );
-              } else if (index == 19) {
+              } //equals
+              else if (index == 19) {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
@@ -193,7 +181,7 @@ class _HomeViewState extends State<HomeView> {
                     setState(
                       () {
                         if (history == '') {
-                          if (equation.startsWith('0')) {
+                          if (endsWithOperator(equation)) {
                             history = '';
                             return;
                           }
@@ -201,10 +189,7 @@ class _HomeViewState extends State<HomeView> {
                           equation = calculate(equation);
                           result = equation;
                         }
-                        if (equation.endsWith('+') ||
-                            equation.endsWith('-') ||
-                            equation.endsWith('*') ||
-                            equation.endsWith('/')) {
+                        if (endsWithOperator(equation)) {
                           history == '';
                         }
                       },
@@ -237,5 +222,17 @@ class _HomeViewState extends State<HomeView> {
         ),
       ]),
     ));
+  }
+}
+
+endsWithOperator(String equation) {
+  if (equation.endsWith('+') ||
+      equation.endsWith('-') ||
+      equation.endsWith('*') ||
+      equation.endsWith('/') ||
+      equation.endsWith('%')) {
+    return true;
+  } else {
+    return false;
   }
 }
