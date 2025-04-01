@@ -180,6 +180,11 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
+                        if (containsOperator(equation)) {
+                          equation = calculate(equation);
+                        } else {
+                          return;
+                        }
                         if (history == '') {
                           if (endsWithOperator(equation)) {
                             history = '';
@@ -222,17 +227,5 @@ class _HomeViewState extends State<HomeView> {
         ),
       ]),
     ));
-  }
-}
-
-endsWithOperator(String equation) {
-  if (equation.endsWith('+') ||
-      equation.endsWith('-') ||
-      equation.endsWith('*') ||
-      equation.endsWith('/') ||
-      equation.endsWith('%')) {
-    return true;
-  } else {
-    return false;
   }
 }

@@ -36,12 +36,12 @@ Widget valueToWidget(String value) {
       FontAwesomeIcons.deleteLeft,
       size: 32,
     );
-  } else if (value == '/') {
+  } else if (value == '÷') {
     return FaIcon(
       FontAwesomeIcons.divide,
       size: 32,
     );
-  } else if (value == '*') {
+  } else if (value == '×') {
     return FaIcon(
       FontAwesomeIcons.xmark,
       size: 32,
@@ -69,16 +69,16 @@ Widget valueToWidget(String value) {
   }
 }
 
-colorSetter(String value) {
+Color colorSetter(String value) {
   if (value == 'del') {
     return kGrey;
   } else if (value == 'AC') {
     return kGrey;
-  } else if (value == '%') {
+  } else if (value == '％') {
     return kGrey;
-  } else if (value == '/') {
+  } else if (value == '÷') {
     return kYellow;
-  } else if (value == '*') {
+  } else if (value == '×') {
     return kYellow;
   } else if (value == '-') {
     return kYellow;
@@ -120,4 +120,28 @@ String calculate(String expression) {
       : resultString = result.toString();
 
   return resultString;
+}
+
+bool endsWithOperator(String equation) {
+  if (equation.endsWith('+') ||
+      equation.endsWith('-') ||
+      equation.endsWith('×') ||
+      equation.endsWith('÷') ||
+      equation.endsWith('％')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool containsOperator(String equation) {
+  if (equation.contains('+') ||
+      equation.contains('-') ||
+      equation.contains('×') ||
+      equation.contains('÷') ||
+      equation.contains('％')) {
+    return true;
+  } else {
+    return false;
+  }
 }
