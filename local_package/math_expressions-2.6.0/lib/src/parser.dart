@@ -192,9 +192,9 @@ class Lexer {
   Lexer([this.options = const ParserOptions()]) {
     keywords['+'] = TokenType.PLUS;
     keywords['-'] = TokenType.MINUS;
-    keywords['*'] = TokenType.TIMES;
-    keywords['/'] = TokenType.DIV;
-    keywords['%'] = TokenType.MOD;
+    keywords['×'] = TokenType.TIMES;
+    keywords['÷'] = TokenType.DIV;
+    keywords['％'] = TokenType.MOD;
     keywords['^'] = TokenType.POW;
     keywords['!'] = TokenType.FACTORIAL;
     keywords['nrt'] = TokenType.ROOT;
