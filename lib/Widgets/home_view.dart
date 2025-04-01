@@ -14,35 +14,79 @@ class _HomeViewState extends State<HomeView> {
   String equation = '0';
   String history = '';
   String result = '';
+
+  final GlobalKey _fittedBoxKey = GlobalKey();
+  double fittedBoxWidth = 0.0;
+  double fontSize = 40; // Initial font size
+  final double minFontSize = 35; // Minimum font size
+
+  void _adjustFontSize() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final RenderBox? renderBox =
+          _fittedBoxKey.currentContext?.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        double screenWidth =
+            MediaQuery.of(context).size.width; // Use full width
+        double newFittedBoxWidth = renderBox.size.width;
+
+        if (newFittedBoxWidth > screenWidth && fontSize > minFontSize) {
+          setState(() {
+            fontSize -= 5; // Decrease font size if it overflows
+          });
+        } else {
+          setState(() {
+            fittedBoxWidth = newFittedBoxWidth;
+          });
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      child: Column(children: [
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                    history,
-                    style: kHistoryStyle,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    reverse: true,
+                    child: Text(
+                      history,
+                      style: kHistoryStyle,
+                    ),
                   ),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    equation,
-                    style: kResultStyle,
-                  ),
-                ),
+                LayoutBuilder(builder: (context, constraints) {
+                  _adjustFontSize();
+                  return Container(
+                    alignment: Alignment.centerRight,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      reverse: true,
+                      child: Container(
+                        key: _fittedBoxKey, // Assign
+                        child: FittedBox(
+                          child: Text(
+                            equation,
+                            style: TextStyle(
+                              fontSize: fontSize,
+                            ),
+                            maxLines: 1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                })
               ],
             ),
           ),
@@ -100,6 +144,7 @@ class _HomeViewState extends State<HomeView> {
                         equation = '0';
                         result = '0';
                         history = '';
+                        fontSize = kDefaultResultSize;
                       },
                     );
                   },
@@ -204,7 +249,7 @@ class _HomeViewState extends State<HomeView> {
                           equation == '0'
                               ? equation = displayer(values[index])
                               : equation += displayer(values[index]);
-                        } else if (history != '') {
+                        } else {
                           history = '';
                           equation = '';
                           equation += displayer(values[index]);
