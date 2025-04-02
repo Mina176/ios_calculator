@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ios_calculator/methods.dart';
 import 'package:ios_calculator/styles.dart';
 
 class Result extends StatelessWidget {
@@ -7,6 +8,7 @@ class Result extends StatelessWidget {
     required this.equation,
   });
   final String equation;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +18,7 @@ class Result extends StatelessWidget {
         reverse: true,
         child: FittedBox(
           child: Text(
-            equation,
+            formatNumber(equation),
             style: kResultStyle56,
             maxLines: 1,
           ),

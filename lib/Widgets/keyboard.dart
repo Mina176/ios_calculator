@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ios_calculator/Widgets/custom_button.dart';
 import 'package:ios_calculator/constants.dart';
+import 'package:ios_calculator/methods.dart';
 
 class Keyboard extends StatefulWidget {
   const Keyboard({super.key});

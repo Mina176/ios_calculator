@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ios_calculator/Widgets/custom_button.dart';
 import 'package:ios_calculator/Widgets/display_screen.dart';
 import 'package:ios_calculator/constants.dart';
+import 'package:ios_calculator/methods.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -9,11 +10,9 @@ class HomeView extends StatefulWidget {
   @override
   State<HomeView> createState() => _HomeViewState();
 }
-
 class _HomeViewState extends State<HomeView> {
   String equation = '0';
   String history = '';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +100,8 @@ class _HomeViewState extends State<HomeView> {
               : equation += displayer(values[index]);
         } else {
           history = '';
-          equation = displayer(values[index]);
+          equation = '';
+          equation += displayer(values[index]);
         }
       },
     );
