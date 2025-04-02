@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ios_calculator/Widgets/result.dart';
 import 'package:ios_calculator/styles.dart';
 
-class Histroy extends StatelessWidget {
-  const Histroy({
+class History extends StatelessWidget {
+  const History({
     super.key,
     required this.history,
   });
@@ -11,16 +12,22 @@ class Histroy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: Text(
-          history,
-          style: kHistoryStyle,
-        ),
-      ),
+    if (history.length < 9) {
+      return CustomText(
+        text: history,
+        textStyle: kHistoryStyle30,
+      );
+    }
+    if (history.length < 12) {
+      return CustomText(
+        text: history,
+        textStyle: kHistoryStyle25,
+      );
+    }
+
+    return CustomText(
+      text: history,
+      textStyle: kHistoryStyle20,
     );
   }
 }

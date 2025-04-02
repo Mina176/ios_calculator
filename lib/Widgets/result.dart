@@ -11,17 +11,53 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (equation.length < 9) {
+      return CustomText(
+        text: equation,
+        textStyle: kResultStyle65,
+      );
+    }
+    if (equation.length < 12) {
+      return CustomText(
+        text: equation,
+        textStyle: kResultStyle55,
+      );
+    }
+    if (equation.length < 15) {
+      return CustomText(
+        text: equation,
+        textStyle: kResultStyle45,
+      );
+    }
+    return CustomText(
+      text: equation,
+      textStyle: kResultStyle35,
+    );
+  }
+}
+
+class CustomText extends StatelessWidget {
+  const CustomText({
+    super.key,
+    required this.text,
+    required this.textStyle,
+  });
+
+  final String text;
+
+  final TextStyle textStyle;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerRight,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         reverse: true,
-        child: FittedBox(
-          child: Text(
-            formatNumber(equation),
-            style: kResultStyle56,
-            maxLines: 1,
-          ),
+        child: Text(
+          formatNumber(text),
+          style: textStyle,
+          maxLines: 1,
         ),
       ),
     );

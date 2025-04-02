@@ -39,6 +39,7 @@ dependencies:
   math_expressions:
     path: local_package/math_expressions-2.6.0
   intl: ^0.20.2
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

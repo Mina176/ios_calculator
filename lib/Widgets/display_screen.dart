@@ -16,10 +16,13 @@ class DisplayScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [Histroy(history: history), Result(equation: equation)],
+          children: [
+            History(history: history),
+            Result(equation: equation),
+          ],
         ),
       ),
     );

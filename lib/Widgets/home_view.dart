@@ -10,6 +10,7 @@ class HomeView extends StatefulWidget {
   @override
   State<HomeView> createState() => _HomeViewState();
 }
+
 class _HomeViewState extends State<HomeView> {
   String equation = '0';
   String history = '';
