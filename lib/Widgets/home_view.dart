@@ -58,11 +58,12 @@ class _HomeViewState extends State<HomeView> {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.65,
           child: GridView.builder(
+            shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             padding: EdgeInsets.all(0),
             itemCount: values.length,
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4, mainAxisSpacing: 4, crossAxisSpacing: 4),
             itemBuilder: (context, index) {
               // delete left button
               if (index == 0) {
