@@ -33,28 +33,6 @@ const List<String> values = [
   '=',
 ];
 
-final Map<String, Color> colorMap = {
-  'del': kGrey,
-  'AC': kGrey,
-  '％': kGrey,
-  '÷': kYellow,
-  '7': kBlack,
-  '8': kBlack,
-  '9': kBlack,
-  '×': kYellow,
-  '4': kBlack,
-  '5': kBlack,
-  '6': kBlack,
-  '-': kYellow,
-  '1': kBlack,
-  '2': kBlack,
-  '3': kBlack,
-  '+': kYellow,
-  '00': kBlack,
-  '0': kBlack,
-  '.': kBlack,
-  '=': kYellow
-};
 
 Widget valueToWidget(String value) {
   if (value == 'del') {
