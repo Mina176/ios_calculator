@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ios_calculator/Views/home_view.dart';
+import 'package:ios_calculator/Widgets/home_view.dart';
 
 void main() {
   runApp(const IosCaclulator());

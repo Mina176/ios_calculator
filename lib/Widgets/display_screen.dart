@@ -19,14 +19,7 @@ class DisplayScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Histroy(
-              history: history,
-            ),
-            Result(
-              equation: equation,
-            ),
-          ],
+          children: [Histroy(history: history), Result(equation: equation)],
         ),
       ),
     );
