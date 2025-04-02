@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:ios_calculator/Widgets/custom_button.dart';
 import 'package:ios_calculator/constants.dart';
-import 'package:ios_calculator/styles.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class Keyboard extends StatefulWidget {
+  const Keyboard({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<Keyboard> createState() => _KeyboardState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _KeyboardState extends State<Keyboard> {
   String equation = '0';
   String history = '';
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(children: [
-        DisplayScreen(history: history, equation: equation),
-        SizedBox(
+    return SizedBox(
           height: MediaQuery.of(context).size.height * 0.65,
           child: GridView.builder(
             shrinkWrap: true,
@@ -87,12 +80,11 @@ class _HomeViewState extends State<HomeView> {
               }
             },
           ),
-        ),
-      ]),
-    ));
+        );
+      
   }
-
-  void numbers(int index) {
+  
+ void numbers(int index) {
     setState(
       () {
         if (history == '') {
@@ -198,77 +190,3 @@ class _HomeViewState extends State<HomeView> {
   }
 }
 
-class DisplayScreen extends StatelessWidget {
-  const DisplayScreen({
-    super.key,
-    required this.history,
-    required this.equation,
-  });
-
-  final String history;
-  final String equation;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [Histroy(history: history), Result(equation: equation)],
-        ),
-      ),
-    );
-  }
-}
-
-class Histroy extends StatelessWidget {
-  const Histroy({
-    super.key,
-    required this.history,
-  });
-
-  final String history;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: Text(
-          history,
-          style: kHistoryStyle,
-        ),
-      ),
-    );
-  }
-}
-
-class Result extends StatelessWidget {
-  const Result({
-    super.key,
-    required this.equation,
-  });
-
-  final String equation;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: FittedBox(
-          child: Text(
-            equation,
-            style: kResultStyle56,
-            maxLines: 1,
-          ),
-        ),
-      ),
-    );
-  }
-}

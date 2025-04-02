@@ -6,14 +6,5 @@ const TextStyle keyboardStyle =
 const TextStyle kResultStyle56 =
     TextStyle(fontSize: 56, fontWeight: FontWeight.w500);
 
-const TextStyle kResultStyle40 =
-    TextStyle(fontSize: 40, fontWeight: FontWeight.w500);
-
-const TextStyle kResultStyle30 =
-    TextStyle(fontSize: 30, fontWeight: FontWeight.w500);
-
-const TextStyle kResultStyle20 =
-    TextStyle(fontSize: 20, fontWeight: FontWeight.w500);
-
 const TextStyle kHistoryStyle =
     TextStyle(color: Colors.grey, fontSize: 20, fontWeight: FontWeight.w500);
