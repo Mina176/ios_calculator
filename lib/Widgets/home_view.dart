@@ -13,34 +13,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   String equation = '0';
   String history = '';
-  String result = '';
-
-  final GlobalKey _fittedBoxKey = GlobalKey();
-  double fittedBoxWidth = 0.0;
-  double fontSize = 40; // Initial font size
-  final double minFontSize = 35; // Minimum font size
-
-  void _adjustFontSize() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final RenderBox? renderBox =
-          _fittedBoxKey.currentContext?.findRenderObject() as RenderBox?;
-      if (renderBox != null) {
-        double screenWidth =
-            MediaQuery.of(context).size.width; // Use full width
-        double newFittedBoxWidth = renderBox.size.width;
-
-        if (newFittedBoxWidth > screenWidth && fontSize > minFontSize) {
-          setState(() {
-            fontSize -= 5; // Decrease font size if it overflows
-          });
-        } else {
-          setState(() {
-            fittedBoxWidth = newFittedBoxWidth;
-          });
-        }
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,28 +37,20 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                 ),
-                LayoutBuilder(builder: (context, constraints) {
-                  _adjustFontSize();
-                  return Container(
-                    alignment: Alignment.centerRight,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      reverse: true,
-                      child: Container(
-                        key: _fittedBoxKey, // Assign
-                        child: FittedBox(
-                          child: Text(
-                            equation,
-                            style: TextStyle(
-                              fontSize: fontSize,
-                            ),
-                            maxLines: 1,
-                          ),
-                        ),
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    reverse: true,
+                    child: FittedBox(
+                      child: Text(
+                        equation,
+                        style: kResultStyle56,
+                        maxLines: 1,
                       ),
                     ),
-                  );
-                })
+                  ),
+                )
               ],
             ),
           ),
@@ -108,14 +72,10 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     setState(
                       () {
-                        if (history == '0') {
+                        if (history == '') {
                           equation.substring(0, equation.length - 1);
-                        }
-                        if (history != '') {
+                        } else {
                           history = '';
-                          equation = '0';
-                        }
-                        if (equation == '0') {
                           equation = '0';
                         }
                         equation.length == 1
@@ -129,6 +89,7 @@ class _HomeViewState extends State<HomeView> {
                     setState(
                       () {
                         equation = '0';
+                        history = '';
                       },
                     );
                   },
@@ -142,9 +103,7 @@ class _HomeViewState extends State<HomeView> {
                     setState(
                       () {
                         equation = '0';
-                        result = '0';
                         history = '';
-                        fontSize = kDefaultResultSize;
                       },
                     );
                   },
@@ -165,8 +124,7 @@ class _HomeViewState extends State<HomeView> {
                         if (history != '') {
                           history = '';
                         }
-                        equation.contains(values[index]) ||
-                                endsWithOperator(equation)
+                        endsWithOperator(equation)
                             ? equation =
                                 equation.substring(0, equation.length - 1) +
                                     displayer(values[index])
@@ -232,7 +190,6 @@ class _HomeViewState extends State<HomeView> {
                         } else if (containsOperator(equation)) {
                           history = equation;
                           equation = calculate(equation);
-                          result = equation;
                         }
                       },
                     );
@@ -253,6 +210,9 @@ class _HomeViewState extends State<HomeView> {
                           history = '';
                           equation = '';
                           equation += displayer(values[index]);
+                        }
+                        if (equation.endsWith('0')) {
+                          equation = equation;
                         }
                       },
                     );
