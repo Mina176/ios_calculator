@@ -20,41 +20,7 @@ class _HomeViewState extends State<HomeView> {
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    reverse: true,
-                    child: Text(
-                      history,
-                      style: kHistoryStyle,
-                    ),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    reverse: true,
-                    child: FittedBox(
-                      child: Text(
-                        equation,
-                        style: kResultStyle56,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
+        DisplayScreen(history: history, equation: equation),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.65,
           child: GridView.builder(
@@ -70,44 +36,14 @@ class _HomeViewState extends State<HomeView> {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        if (history == '') {
-                          equation.substring(0, equation.length - 1);
-                        } else {
-                          history = '';
-                          equation = '0';
-                        }
-                        equation.length == 1
-                            ? equation = '0'
-                            : equation =
-                                equation.substring(0, equation.length - 1);
-                      },
-                    );
-                  },
-                  onLongPress: () {
-                    setState(
-                      () {
-                        equation = '0';
-                        history = '';
-                      },
-                    );
-                  },
+                  onTap: () => deleteLeft(),
                 );
               } // AC
               else if (index == 1) {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        equation = '0';
-                        history = '';
-                      },
-                    );
-                  },
+                  onTap: () => ac(),
                 );
               }
               // operators
@@ -119,105 +55,34 @@ class _HomeViewState extends State<HomeView> {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        if (history != '') {
-                          history = '';
-                        }
-                        endsWithOperator(equation)
-                            ? equation =
-                                equation.substring(0, equation.length - 1) +
-                                    displayer(values[index])
-                            : equation += displayer(values[index]);
-                      },
-                    );
-                  },
+                  onTap: () => opeartors(index),
                 );
               } // 00 button
               else if (index == 16) {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        if (equation == '0') {
-                          equation = '0';
-                          return;
-                        }
-                        if (history == '') {
-                          equation == '0'
-                              ? equation = displayer(values[index])
-                              : equation += displayer(values[index]);
-                        } else if (history != '') {
-                          history = '';
-                          equation = '';
-                          equation += displayer(values[index]);
-                        }
-                      },
-                    );
-                  },
+                  onTap: () => doubleZero(index),
                 );
               } // '.'
               else if (index == 18) {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        if (equation.endsWith('.')) {
-                          equation = equation;
-                        } else if (endsWithOperator(equation)) {
-                          equation += '0.';
-                        } else {
-                          equation += displayer(values[index]);
-                        }
-                      },
-                    );
-                  },
+                  onTap: () => decimalPoint(index),
                 );
               } //equals
               else if (index == 19) {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        if (endsWithOperator(equation)) {
-                          history == '';
-                        } else if (containsOperator(equation)) {
-                          history = equation;
-                          equation = calculate(equation);
-                        }
-                      },
-                    );
-                  },
+                  onTap: () => equals(),
                 );
               } else {
                 return CustomButton(
                   symbol: valueToWidget(values[index]),
                   color: colorSetter(values[index]),
-                  onTap: () {
-                    setState(
-                      () {
-                        if (history == '') {
-                          equation == '0'
-                              ? equation = displayer(values[index])
-                              : equation += displayer(values[index]);
-                        } else {
-                          history = '';
-                          equation = '';
-                          equation += displayer(values[index]);
-                        }
-                        if (equation.endsWith('0')) {
-                          equation = equation;
-                        }
-                      },
-                    );
-                  },
+                  onTap: () => numbers(index),
                 );
               }
             },
@@ -225,5 +90,185 @@ class _HomeViewState extends State<HomeView> {
         ),
       ]),
     ));
+  }
+
+  void numbers(int index) {
+    setState(
+      () {
+        if (history == '') {
+          equation == '0'
+              ? equation = displayer(values[index])
+              : equation += displayer(values[index]);
+        } else {
+          history = '';
+          equation = '';
+          equation += displayer(values[index]);
+        }
+        if (equation.endsWith('0')) {
+          equation = equation;
+        }
+      },
+    );
+  }
+
+  void equals() {
+    setState(
+      () {
+        if (endsWithOperator(equation)) {
+          history == '';
+        } else if (containsOperator(equation)) {
+          history = equation;
+          equation = calculate(equation);
+        }
+      },
+    );
+  }
+
+  void decimalPoint(int index) {
+    setState(
+      () {
+        if (equation.endsWith('.')) {
+          equation = equation;
+        } else if (endsWithOperator(equation)) {
+          equation += '0.';
+        } else {
+          equation += displayer(values[index]);
+        }
+      },
+    );
+  }
+
+  void doubleZero(int index) {
+    setState(
+      () {
+        if (equation == '0') {
+          equation = '0';
+          return;
+        }
+        if (history == '') {
+          equation == '0'
+              ? equation = displayer(values[index])
+              : equation += displayer(values[index]);
+        } else if (history != '') {
+          history = '';
+          equation = '';
+          equation += displayer(values[index]);
+        }
+      },
+    );
+  }
+
+  void opeartors(int index) {
+    setState(
+      () {
+        if (history != '') {
+          history = '';
+        }
+        endsWithOperator(equation)
+            ? equation = equation.substring(0, equation.length - 1) +
+                displayer(values[index])
+            : equation += displayer(values[index]);
+      },
+    );
+  }
+
+  void ac() {
+    setState(
+      () {
+        equation = '0';
+        history = '';
+      },
+    );
+  }
+
+  void deleteLeft() {
+    setState(
+      () {
+        if (history == '') {
+          equation.substring(0, equation.length - 1);
+        } else {
+          history = '';
+          equation = '0';
+        }
+        equation.length == 1
+            ? equation = '0'
+            : equation = equation.substring(0, equation.length - 1);
+      },
+    );
+  }
+}
+
+class DisplayScreen extends StatelessWidget {
+  const DisplayScreen({
+    super.key,
+    required this.history,
+    required this.equation,
+  });
+
+  final String history;
+  final String equation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [Histroy(history: history), Result(equation: equation)],
+        ),
+      ),
+    );
+  }
+}
+
+class Histroy extends StatelessWidget {
+  const Histroy({
+    super.key,
+    required this.history,
+  });
+
+  final String history;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerRight,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        child: Text(
+          history,
+          style: kHistoryStyle,
+        ),
+      ),
+    );
+  }
+}
+
+class Result extends StatelessWidget {
+  const Result({
+    super.key,
+    required this.equation,
+  });
+
+  final String equation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerRight,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        child: FittedBox(
+          child: Text(
+            equation,
+            style: kResultStyle56,
+            maxLines: 1,
+          ),
+        ),
+      ),
+    );
   }
 }
