@@ -21,7 +21,7 @@ class DisplayScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             History(history: history),
-            Result(equation: equation),
+            Result(history: history, equation: equation),
           ],
         ),
       ),
