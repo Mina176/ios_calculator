@@ -29,8 +29,8 @@ class _CustomButtonState extends State<CustomButton> {
     setState(() {
       if (widget.color == kGrey) {
         buttonColor = kGreyOnPressed;
-      } else if (widget.color == kYellow) {
-        buttonColor = kYellowOnPressed;
+      } else if (widget.color == kPink) {
+        buttonColor = kPinkOnPressed;
       } else {
         buttonColor = kBlackOnPressed;
       }
@@ -47,8 +47,8 @@ class _CustomButtonState extends State<CustomButton> {
     setState(() {
       if (widget.color == kGrey) {
         buttonColor = kGreyOnPressed;
-      } else if (widget.color == kYellow) {
-        buttonColor = kYellowOnPressed;
+      } else if (widget.color == kPink) {
+        buttonColor = kPinkOnPressed;
       } else {
         buttonColor = kBlackOnPressed;
       }

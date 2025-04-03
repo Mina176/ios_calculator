@@ -51,15 +51,15 @@ Color colorSetter(String value) {
   } else if (value == '％') {
     return kGrey;
   } else if (value == '÷') {
-    return kYellow;
+    return kPink;
   } else if (value == '×') {
-    return kYellow;
+    return kPink;
   } else if (value == '-') {
-    return kYellow;
+    return kPink;
   } else if (value == '+') {
-    return kYellow;
+    return kPink;
   } else if (value == '=') {
-    return kYellow;
+    return kPink;
   } else {
     return kBlack;
   }
@@ -108,9 +108,6 @@ bool endsWithOperator(String equation) {
   }
 }
 
-
-
-
 bool containsOperator(String equation) {
   if (equation.contains('+') ||
       equation.contains('-') ||
@@ -122,18 +119,6 @@ bool containsOperator(String equation) {
     return false;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 String formatNumber(String numStr) {
   if (numStr.isEmpty) return "";
@@ -150,7 +135,7 @@ String formatNumber(String numStr) {
     // Format the integer part (Add commas)
     integerPart = integerPart.replaceAllMapped(
         RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
-    
+
     return "$integerPart.$decimalPart"; // Recombine
   } else {
     return numStr.replaceAllMapped(

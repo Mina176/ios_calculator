@@ -11,19 +11,19 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (equation.length < 9) {
+    if (equation.length < 8) {
       return CustomText(
         text: equation,
         textStyle: kResultStyle65,
       );
     }
-    if (equation.length < 12) {
+    if (equation.length < 10) {
       return CustomText(
         text: equation,
         textStyle: kResultStyle55,
       );
     }
-    if (equation.length < 15) {
+    if (equation.length < 12) {
       return CustomText(
         text: equation,
         textStyle: kResultStyle45,

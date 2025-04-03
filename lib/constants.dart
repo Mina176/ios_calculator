@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-
-const kYellow = Color(0xFFFF9F0A);
-const kYellowOnPressed = Color(0xFFFBC78D);
+const kPink = Color(0xFFE91E63);
+const kPinkOnPressed = Color(0xFFE68CAA);
 const kGrey = Color(0xFF5C5B60);
 const kGreyOnPressed = Color(0xFF8C8C8C);
 const kBlack = Color(0xFF2A2A2C);
@@ -30,4 +29,3 @@ const List<String> values = [
   '.',
   '=',
 ];
-
