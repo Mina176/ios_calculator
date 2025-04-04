@@ -6,11 +6,12 @@ class DisplayScreen extends StatelessWidget {
     super.key,
     required this.history,
     required this.equation,
+    required this.historyOnTap,
   });
 
   final String history;
   final String equation;
-
+  final VoidCallback historyOnTap;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -19,6 +20,7 @@ class DisplayScreen extends StatelessWidget {
         child: HistoryAndResult(
           history: history,
           equation: equation,
+          historyOnTap: historyOnTap,
         ),
       ),
     );

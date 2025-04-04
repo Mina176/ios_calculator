@@ -4,14 +4,16 @@ import 'package:ios_calculator/Widgets/scroll_text.dart';
 import 'package:ios_calculator/methods.dart';
 
 class HistoryAndResult extends StatefulWidget {
-  HistoryAndResult({
+  const HistoryAndResult({
     super.key,
     required this.equation,
     required this.history,
+    required this.historyOnTap,
   });
 
-  String equation;
-  String history;
+  final String equation;
+  final String history;
+  final VoidCallback historyOnTap;
 
   @override
   State<HistoryAndResult> createState() => _HistoryAndResultState();
@@ -43,12 +45,7 @@ class _HistoryAndResultState extends State<HistoryAndResult> {
                 ),
               )
             : GestureDetector(
-                onTap: () {
-                  setState(() {
-                    widget.equation = widget.history;
-                    widget.history = '';
-                  });
-                },
+                onTap: widget.historyOnTap,
                 child: Container(
                   alignment: Alignment.centerRight,
                   width: MediaQuery.of(context).size.width,
