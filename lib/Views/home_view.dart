@@ -18,46 +18,60 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(children: [
-        DisplayScreen(
-          history: history,
-          equation: equation,
-          historyOnTap: () {
-            setState(() {
-              equation = history;
-              history = '';
-            });
-          },
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.65,
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.all(0),
-            itemCount: values.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, mainAxisSpacing: 4, crossAxisSpacing: 4),
-            itemBuilder: (context, index) {
-              // delete left button
-
-              return CustomButton(
-                symbol: valueToWidget(values[index]),
-                color: colorSetter(values[index]),
-                onTap: () {
-                  onTap(values[index]);
-                },
-              );
-            },
-          ),
-        ),
-      ]),
-    ));
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return orientation == Orientation.portrait
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Column(children: [
+                    DisplayScreen(
+                        history: history,
+                        equation: equation,
+                        historyOnTap: () {
+                          setState(() {
+                            equation = history;
+                            history = '';
+                          });
+                        }),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.65,
+                      child: GridView.count(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.all(0),
+                        crossAxisCount: 4,
+                        mainAxisSpacing: 4,
+                        crossAxisSpacing: 4,
+                        children: values.map((value) {
+                          return CustomButton(
+                            symbol: valueToWidget(value),
+                            color: colorSetter(value),
+                            onTap: () => onBtnTap(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ]),
+                )
+              : Column(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.65,
+                      color: Colors.red,
+                    ),
+                  ],
+                );
+        },
+      ),
+    );
   }
 
-  onTap(String value) {
+  onBtnTap(String value) {
     setState(() {
       if (value == 'del') {
         {

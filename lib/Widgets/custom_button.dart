@@ -10,7 +10,7 @@ class CustomButton extends StatefulWidget {
       this.onLongPress});
   final Widget symbol;
   final Color color;
-  final void Function()? onTap;
+  final VoidCallback onTap;
   final VoidCallback? onLongPress;
 
   @override
@@ -40,7 +40,6 @@ class _CustomButtonState extends State<CustomButton> {
         buttonColor = widget.color;
       });
     });
-    widget.onTap;
   }
 
   void onLongPressedStart(details) {
@@ -59,7 +58,6 @@ class _CustomButtonState extends State<CustomButton> {
     setState(() {
       buttonColor = widget.color;
     });
-    widget.onTap;
   }
 
   @override
@@ -67,10 +65,13 @@ class _CustomButtonState extends State<CustomButton> {
     return GestureDetector(
       onTap: () {
         onTap();
-        widget.onTap!();
+        widget.onTap();
       },
       onLongPressDown: onLongPressedStart,
-      onLongPressUp: onLongPressedEnd,
+      onLongPressUp: () {
+        onLongPressedEnd();
+        widget.onTap();
+      },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150), // Smooth transition
         curve: Curves.easeInOut, // Eases the transition effect
