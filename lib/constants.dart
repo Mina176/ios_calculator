@@ -7,7 +7,15 @@ const kGreyOnPressed = Color(0xFF8C8C8C);
 const kBlack = Color(0xFF2A2A2C);
 const kBlackOnPressed = Color(0xFF727272);
 
-const List<String> values = [
+const kPortraitKeyboardTextSize = 24.0;
+const kPortraitIconSize = 32.0;
+
+const kLandscapeIconSize = 20.0;
+const kLandscapeKeyboardTextSize = 16.0;
+
+
+
+const List<String> portraitButtonvalues = [
   'del',
   'AC',
   '％',
@@ -28,4 +36,27 @@ const List<String> values = [
   '0',
   '.',
   '=',
+];
+
+const List<String> landscapeButtonvalues = [
+  '7',
+  '8',
+  '9',
+  'AC',
+  '÷',
+  '4',
+  '5',
+  '6',
+  'del',
+  '×',
+  '1',
+  '2',
+  '3',
+  '％',
+  '-',
+  '00',
+  '0',
+  '.',
+  '=',
+  '+',
 ];

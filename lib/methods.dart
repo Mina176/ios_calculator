@@ -1,44 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ios_calculator/constants.dart';
-import 'package:ios_calculator/styles.dart';
 import 'package:math_expressions/math_expressions.dart';
 
-Widget valueToWidget(String value) {
+Widget valueToWidget(String value, double iconSize, double textSize) {
   if (value == 'del') {
     return FaIcon(
       FontAwesomeIcons.deleteLeft,
-      size: 32,
+      size: iconSize,
     );
   } else if (value == '÷') {
     return FaIcon(
       FontAwesomeIcons.divide,
-      size: 32,
+      size: iconSize,
     );
   } else if (value == '×') {
     return FaIcon(
       FontAwesomeIcons.xmark,
-      size: 32,
+      size: iconSize,
     );
   } else if (value == '-') {
     return FaIcon(
       FontAwesomeIcons.minus,
-      size: 32,
+      size: iconSize,
     );
   } else if (value == '+') {
     return FaIcon(
       FontAwesomeIcons.plus,
-      size: 32,
+      size: iconSize,
     );
   } else if (value == '=') {
     return FaIcon(
       FontAwesomeIcons.equals,
-      size: 32,
+      size: iconSize,
     );
   } else {
     return Text(
       value,
-      style: keyboardStyle,
+      style: TextStyle(fontSize: textSize, fontWeight: FontWeight.w700),
     );
   }
 }

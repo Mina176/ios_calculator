@@ -2,9 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:ios_calculator/Widgets/scroll_text.dart';
 import 'package:ios_calculator/methods.dart';
+import 'package:ios_calculator/styles.dart';
 
-class HistoryAndResult extends StatefulWidget {
-  const HistoryAndResult({
+class HistoryAndResultLandscape extends StatefulWidget {
+  const HistoryAndResultLandscape({
     super.key,
     required this.equation,
     required this.history,
@@ -16,10 +17,11 @@ class HistoryAndResult extends StatefulWidget {
   final VoidCallback historyOnTap;
 
   @override
-  State<HistoryAndResult> createState() => _HistoryAndResultState();
+  State<HistoryAndResultLandscape> createState() =>
+      _HistoryAndResultLandscapeState();
 }
 
-class _HistoryAndResultState extends State<HistoryAndResult> {
+class _HistoryAndResultLandscapeState extends State<HistoryAndResultLandscape> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,15 +34,12 @@ class _HistoryAndResultState extends State<HistoryAndResult> {
                 child: AutoSizeText(
                   formatNumber(widget.history),
                   maxLines: 1,
-                  style: TextStyle(fontSize: 25, color: Colors.grey),
+                  style: kHistoryStyle20,
                   minFontSize: 20,
-                  overflowReplacement: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: ScrollText(
-                      text: widget.history,
-                      fontSize: 20,
-                      color: Colors.grey,
-                    ),
+                  overflowReplacement: ScrollText(
+                    text: widget.history,
+                    fontSize: 20,
+                    color: Colors.grey,
                   ),
                 ),
               )
@@ -52,33 +51,27 @@ class _HistoryAndResultState extends State<HistoryAndResult> {
                   child: AutoSizeText(
                     formatNumber(widget.history),
                     maxLines: 1,
-                    style: TextStyle(fontSize: 25, color: Colors.grey),
+                    style: kHistoryStyle20,
                     minFontSize: 20,
-                    overflowReplacement: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: ScrollText(
-                        text: widget.history,
-                        fontSize: 20,
-                        color: Colors.grey,
-                      ),
+                    overflowReplacement: ScrollText(
+                      text: widget.history,
+                      fontSize: 20,
+                      color: Colors.grey,
                     ),
                   ),
                 )),
-        widget.history != ''
+        widget.history == ''
             ? Container(
                 alignment: Alignment.centerRight,
                 width: MediaQuery.of(context).size.width,
                 child: AutoSizeText(
                   formatNumber(widget.equation),
                   maxLines: 1,
-                  style: TextStyle(fontSize: 60, color: Colors.white),
-                  minFontSize: 20,
-                  overflowReplacement: Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: ScrollText(
-                      text: widget.equation,
-                      fontSize: 20,
-                    ),
+                  style: kResultStyle45,
+                  minFontSize: 40,
+                  overflowReplacement: ScrollText(
+                    text: widget.equation,
+                    fontSize: 40,
                   ),
                 ),
               )
@@ -88,12 +81,8 @@ class _HistoryAndResultState extends State<HistoryAndResult> {
                 child: AutoSizeText(
                   formatNumber(widget.equation),
                   maxLines: 1,
-                  style: TextStyle(fontSize: 60, color: Colors.white),
-                  minFontSize: 50,
-                  overflowReplacement: ScrollText(
-                    text: widget.equation,
-                    fontSize: 50,
-                  ),
+                  style: kResultStyle45,
+                  minFontSize: 30,
                 ),
               )
       ],

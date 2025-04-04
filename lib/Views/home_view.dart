@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ios_calculator/Widgets/custom_button.dart';
-import 'package:ios_calculator/Widgets/display_screen.dart';
+import 'package:ios_calculator/Widgets/custom_landscape_button.dart';
+import 'package:ios_calculator/Widgets/custom_portrait_button.dart';
+import 'package:ios_calculator/Widgets/display_screen_landscape.dart';
+import 'package:ios_calculator/Widgets/display_screen_portrait.dart';
 import 'package:ios_calculator/constants.dart';
 import 'package:ios_calculator/methods.dart';
 
@@ -24,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Column(children: [
-                    DisplayScreen(
+                    DisplayScreenPortrait(
                         history: history,
                         equation: equation,
                         historyOnTap: () {
@@ -42,9 +44,13 @@ class _HomeViewState extends State<HomeView> {
                         crossAxisCount: 4,
                         mainAxisSpacing: 4,
                         crossAxisSpacing: 4,
-                        children: values.map((value) {
-                          return CustomButton(
-                            symbol: valueToWidget(value),
+                        children: portraitButtonvalues.map((value) {
+                          return CustomPortraitButton(
+                            symbol: valueToWidget(
+                              value,
+                              kPortraitIconSize,
+                              kPortraitKeyboardTextSize,
+                            ),
                             color: colorSetter(value),
                             onTap: () => onBtnTap(value),
                           );
@@ -54,16 +60,44 @@ class _HomeViewState extends State<HomeView> {
                   ]),
                 )
               : Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Expanded(
-                      child: Container(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.65,
-                      color: Colors.red,
-                    ),
+                    DisplayScreenLandscape(
+                        history: history,
+                        equation: equation,
+                        historyOnTap: () {
+                          setState(() {
+                            equation = history;
+                            history = '';
+                          });
+                        }),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        child: LayoutBuilder(builder: (context, constraints) {
+                          double keyboardHeight = constraints.maxHeight;
+                          double keyboardwidth = constraints.maxWidth;
+                          return GridView.count(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            padding: EdgeInsets.all(0),
+                            crossAxisCount: 5,
+                            childAspectRatio:
+                                ((keyboardwidth / 5) / (keyboardHeight / 4.4)),
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
+                            children: landscapeButtonvalues.map((value) {
+                              return CustomLandscapeButton(
+                                symbol: valueToWidget(
+                                  value,
+                                  kLandscapeIconSize,
+                                  kLandscapeKeyboardTextSize,
+                                ),
+                                color: colorSetter(value),
+                                onTap: () => onBtnTap(value),
+                              );
+                            }).toList(),
+                          );
+                        })),
                   ],
                 );
         },

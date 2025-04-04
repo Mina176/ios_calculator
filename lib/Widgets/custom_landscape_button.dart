@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ios_calculator/constants.dart';
 
-class CustomButton extends StatefulWidget {
-  const CustomButton(
+class CustomLandscapeButton extends StatefulWidget {
+  const CustomLandscapeButton(
       {super.key,
       required this.symbol,
       required this.color,
@@ -14,10 +14,10 @@ class CustomButton extends StatefulWidget {
   final VoidCallback? onLongPress;
 
   @override
-  State<CustomButton> createState() => _CustomButtonState();
+  State<CustomLandscapeButton> createState() => _CustomLandscapeButtonState();
 }
 
-class _CustomButtonState extends State<CustomButton> {
+class _CustomLandscapeButtonState extends State<CustomLandscapeButton> {
   late Color buttonColor;
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _CustomButtonState extends State<CustomButton> {
     super.initState();
   }
 
-  void onTap() {
+  void onTapAnimation() {
     setState(() {
       if (widget.color == kGrey) {
         buttonColor = kGreyOnPressed;
@@ -64,7 +64,7 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onTap();
+        onTapAnimation();
         widget.onTap();
       },
       onLongPressDown: onLongPressedStart,
@@ -75,9 +75,9 @@ class _CustomButtonState extends State<CustomButton> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150), // Smooth transition
         curve: Curves.easeInOut, // Eases the transition effect
-        decoration: BoxDecoration(
+        decoration: ShapeDecoration(
+          shape: StadiumBorder(), //  StadiumBorder,
           color: buttonColor,
-          shape: BoxShape.circle,
         ),
         child: Center(
           child: widget.symbol,

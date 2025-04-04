@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ios_calculator/Widgets/history_and_result.dart';
+import 'package:ios_calculator/Widgets/history_and_result_portrait.dart';
 
-class DisplayScreen extends StatelessWidget {
-  const DisplayScreen({
+class DisplayScreenPortrait extends StatelessWidget {
+  const DisplayScreenPortrait({
     super.key,
     required this.history,
     required this.equation,
@@ -17,7 +17,7 @@ class DisplayScreen extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(right: 12.0),
-        child: HistoryAndResult(
+        child: HistoryAndResultPortrait(
           history: history,
           equation: equation,
           historyOnTap: historyOnTap,
